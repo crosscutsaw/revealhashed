@@ -60,7 +60,7 @@ done < /tmp/hashcat.potfile
 echo ''
 echo 'results'
 echo ''
-awk -F':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed.txt | sort | uniq
+awk -F':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed.txt | awk '!x[$0]++'
 
 # revealhashed 1.0
 # 
