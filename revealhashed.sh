@@ -65,6 +65,6 @@ awk -F':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /
 # revealhashed 1.0
 # 
 # contact options
-# mail: https://vvmlist.github.io/contact.html
+# mail: https://blog.zurrak.com/contact.html
 # twitter: https://twitter.com/tasiyanci
 # linkedin: https://linkedin.com/in/aslanemreaslan
