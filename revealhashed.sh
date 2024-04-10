@@ -53,7 +53,6 @@ echo 'copying hashcat.potfile to /tmp/'
 find / -name 'hashcat.potfile' -exec cp {} /tmp/ \;
 echo 'done'
 echo 'revealing'
-# Read file2
 while IFS=: read -r h1 h2
 do
   grep "$h1" /root/.nxc/logs/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed.txt
