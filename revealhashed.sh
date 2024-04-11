@@ -23,6 +23,7 @@ if [ "$response1" = "n" ]; then
     cat /root/.nxc/logs/*.ntds | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' |  sort | uniq >> /tmp/rh2cracked.txt
     
 elif [ "$response1" = "y" ]; then
+    echo ''
     echo -e "${bwhite}provide the ntds file${reset}"
     read file
     echo -e "${bwhite}script will use $file${reset}"
@@ -65,12 +66,12 @@ echo ''
 echo -e "${bgreen}hashcat session is completed.${reset}"
 echo ''
 echo -e "${bgreen}copying hashcat.potfile to /tmp/${reset}"
-find / -name 'hashcat.potfile' -exec cp {} /tmp/ \;
+find / -name 'hashcat.potfile' -exec cp {} /tmp/ 2>/dev/null \;
 echo -e "${bwhite}done${reset}"
 echo ''
 while IFS=: read -r h1 h2
 do
-  grep "$h1" /root/.nxc/logs/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed.txt
+    grep "$h1" /root/.nxc/logs/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed.txt
 done < /tmp/hashcat.potfile
 echo -e "${bgreen}revealing results${reset}"
 echo ''
