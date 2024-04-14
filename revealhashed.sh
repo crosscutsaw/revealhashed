@@ -69,13 +69,13 @@ echo ''
 echo -e "${bgreen}hashcat session is completed.${reset}"
 echo ''
 echo -e "${bgreen}copying hashcat.potfile to /tmp/revealhashed/${reset}"
-find / -name 'hashcat.potfile' -exec cp {} /tmp/ 2>/dev/null \;
+find / -name 'hashcat.potfile' -exec cp {} /tmp/revealhashed/ 2>/dev/null \;
 echo -e "${bwhite}done${reset}"
 echo ''
 while IFS=: read -r h1 h2
 do
     grep "$h1" /tmp/revealhashed/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed/revealhashed.txt
-done < /tmp/hashcat.potfile
+done < /tmp/revealhashed/hashcat.potfile
 echo -e "${bgreen}revealing results${reset}"
 echo ''
 awk -F':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
