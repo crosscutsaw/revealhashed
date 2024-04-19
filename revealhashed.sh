@@ -9,7 +9,7 @@ reset='\033[0m'
 echo -e "${bblue}revealhashed v1.1${reset}"
 echo ''
 
-echo -e "${bbred}removing old files if they are exist or not${reset}"
+echo -e "${bbred}removing old files if they are exist or not.${reset}"
 rm -rf /tmp/revealhashed
 echo ''
 
@@ -35,10 +35,11 @@ elif [ "$response1" = "y" ]; then
 
 else
     echo 'deadass???'
+    exit
 fi
 
 echo ''
-echo -e "${bgreen}hashes sorted and available at /tmp/revealhashed/rh2cracked.txt${reset}"
+echo -e "${bgreen}hashes sorted and available at \"/tmp/revealhashed/rh2cracked.txt\".${reset}"
 echo ''
 echo -e "${bgreen}do you want to remove hashcat potfile?${reset}"
 echo -e "${bwhite}type n to dont remove"
@@ -47,25 +48,26 @@ read response2
 echo ''
 
 if [ "$response2" = "y" ]; then
-    echo -e "${bgreen}removing hashcat.potfile${reset}"
+    echo -e "${bgreen}removing hashcat potfile.${reset}"
     find / -name 'hashcat.potfile' -exec rm -rf {} \;
     echo -e "${bwhite}done${reset}"
     
 elif [ "$response2" = "n" ]; then
-    echo -e "${bgreen}not removing hashcat.potfile${reset}"
+    echo -e "${bgreen}not removing hashcat potfile.${reset}"
 
 else
     echo 'deadass???'
+    exit
 fi
 
 echo ''
-echo -e "${bgreen}script will start hashcat in quiet mode. you can stop cracking by pressing q.${reset}"
+echo -e "${bgreen}script will start hashcat in quiet mode. you can stop cracking by pressing \"q\".${reset}"
 echo ''
 echo -e "${bgreen}provide your wordlist${reset}"
 echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 read wordlist
 echo ''
-echo -e "${bgreen}$wordlist will be used with hashcat${reset}"
+echo -e "${bgreen}$wordlist will be used with hashcat.${reset}"
 echo ''
 echo -e "${bgreen}hashcat session is starting.${reset}"
 echo ''
@@ -73,7 +75,7 @@ hashcat -m1000 /tmp/revealhashed/rh2cracked.txt $wordlist --quiet
 echo ''
 echo -e "${bgreen}hashcat session is completed.${reset}"
 echo ''
-echo -e "${bgreen}copying hashcat.potfile to /tmp/revealhashed/${reset}"
+echo -e "${bgreen}copying hashcat.potfile to \"/tmp/revealhashed/\".${reset}"
 find / -name 'hashcat.potfile' -exec cp {} /tmp/revealhashed/ 2>/dev/null \;
 echo -e "${bwhite}done${reset}"
 echo ''
