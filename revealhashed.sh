@@ -66,6 +66,9 @@ echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 read wordlist
 echo ''
 echo -e "${bgreen}$wordlist will be used with hashcat${reset}"
+echo ''
+echo -e "${bgreen}hashcat session is starting.${reset}"
+echo ''
 hashcat -m1000 /tmp/revealhashed/rh2cracked.txt $wordlist --quiet
 echo ''
 echo -e "${bgreen}hashcat session is completed.${reset}"
