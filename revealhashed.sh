@@ -20,7 +20,8 @@ echo -e "type y to provide ntds file${reset}"
 read response1
 
 if [ "$response1" = "n" ]; then
-    echo -e "${bwhite}using default path${reset}"
+    echo ''
+    echo -e "${bgreen}using default path${reset}"
     cp /root/.nxc/logs/*.ntds /tmp/revealhashed/
     cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     
@@ -40,18 +41,18 @@ echo ''
 echo -e "${bgreen}hashes sorted and available at /tmp/revealhashed/rh2cracked.txt${reset}"
 echo ''
 echo -e "${bgreen}do you want to remove hashcat potfile?${reset}"
-echo -e "${bwhite}type y to remove (recommended)"
-echo -e "type n to dont remove${reset}"
+echo -e "${bwhite}type n to dont remove"
+echo -e "type y to remove${reset}"
 read response2
 echo ''
 
 if [ "$response2" = "y" ]; then
-    echo -e "${bgreen}removing hashcat potfile${reset}"
+    echo -e "${bgreen}removing hashcat.potfile${reset}"
     find / -name 'hashcat.potfile' -exec rm -rf {} \;
     echo -e "${bwhite}done${reset}"
     
 elif [ "$response2" = "n" ]; then
-    echo ''
+    echo -e "${bgreen}not removing hashcat.potfile${reset}"
 
 else
     echo 'deadass???'
@@ -60,10 +61,11 @@ fi
 echo ''
 echo -e "${bgreen}script will start hashcat in quiet mode. you can stop cracking by pressing q.${reset}"
 echo ''
-echo -e "${bwhite}provide your wordlist${reset}"
+echo -e "${bgreen}provide your wordlist${reset}"
+echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 read wordlist
-echo -e "${bwhite}$wordlist will be used with hashcat${reset}"
 echo ''
+echo -e "${bgreen}$wordlist will be used with hashcat${reset}"
 hashcat -m1000 /tmp/revealhashed/rh2cracked.txt $wordlist --quiet
 echo ''
 echo -e "${bgreen}hashcat session is completed.${reset}"
@@ -78,7 +80,7 @@ do
 done < /tmp/revealhashed/hashcat.potfile
 echo -e "${bgreen}revealing results${reset}"
 echo ''
-awk -F':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
+awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
 
 # revealhashed v1.1
 # 
