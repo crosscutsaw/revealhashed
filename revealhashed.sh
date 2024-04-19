@@ -6,6 +6,7 @@ bgreen='\033[1;32m'
 bwhite='\033[1;37m'
 reset='\033[0m'
 
+echo ''
 echo -e "${bblue}revealhashed v1.1${reset}"
 echo ''
 
@@ -21,15 +22,16 @@ read response1
 
 if [ "$response1" = "n" ]; then
     echo ''
-    echo -e "${bgreen}using default path${reset}"
+    echo -e "${bgreen}using default path.${reset}"
     cp /root/.nxc/logs/*.ntds /tmp/revealhashed/
     cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     
 elif [ "$response1" = "y" ]; then
     echo ''
-    echo -e "${bwhite}provide the ntds file${reset}"
+    echo -e "${bgreen}provide the ntds file${reset}"
     read file
-    echo -e "${bwhite}script will use $file${reset}"    
+    echo ''
+    echo -e "${bgreen}script will use \"$file\".${reset}"    
     cat $file | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     cat $file > /tmp/revealhashed/individual.ntds
 
@@ -42,7 +44,7 @@ echo ''
 echo -e "${bgreen}hashes sorted and available at \"/tmp/revealhashed/rh2cracked.txt\".${reset}"
 echo ''
 echo -e "${bgreen}do you want to remove hashcat potfile?${reset}"
-echo -e "${bwhite}type n to dont remove"
+echo -e "${bwhite}type n to don't remove"
 echo -e "type y to remove${reset}"
 read response2
 echo ''
@@ -67,7 +69,7 @@ echo -e "${bgreen}provide your wordlist${reset}"
 echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 read wordlist
 echo ''
-echo -e "${bgreen}$wordlist will be used with hashcat.${reset}"
+echo -e "${bgreen}\"$wordlist\" will be used with hashcat.${reset}"
 echo ''
 echo -e "${bgreen}hashcat session is starting.${reset}"
 echo ''
