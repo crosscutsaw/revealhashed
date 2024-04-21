@@ -71,11 +71,11 @@ read wordlist
 echo ''
 echo -e "${bgreen}\"$wordlist\" will be used with hashcat.${reset}"
 echo ''
-echo -e "${bgreen}hashcat session is starting.${reset}"
+echo -e "${bgreen}hashcat session is starting. $(date)${reset}"
 echo ''
 hashcat -m1000 /tmp/revealhashed/rh2cracked.txt $wordlist --quiet
 echo ''
-echo -e "${bgreen}hashcat session is completed.${reset}"
+echo -e "${bgreen}hashcat session is completed. $(date)${reset}"
 echo ''
 echo -e "${bgreen}copying hashcat.potfile to \"/tmp/revealhashed/\".${reset}"
 find / -name 'hashcat.potfile' -exec cp {} /tmp/revealhashed/ 2>/dev/null \;
