@@ -14,6 +14,9 @@ echo -e "${bbred}removing old files if they are exist or not.${reset}"
 rm -rf /tmp/revealhashed
 echo ''
 
+echo -e "${bwhite}current working directory is: $(pwd)${reset}"
+echo ''
+
 mkdir /tmp/revealhashed
 echo -e "${bgreen}ntds file: default path (/root/.nxc/logs/) or would you provide?${reset}"
 echo -e "${bwhite}type n to use default path"
@@ -66,7 +69,6 @@ echo ''
 echo -e "${bgreen}script will start hashcat in quiet mode. you can stop cracking by pressing \"q\".${reset}"
 echo ''
 echo -e "${bgreen}provide your wordlist${reset}"
-echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 read wordlist
 echo ''
 echo -e "${bgreen}\"$wordlist\" will be used with hashcat.${reset}"
