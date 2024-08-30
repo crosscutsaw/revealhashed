@@ -89,6 +89,8 @@ do
 done < /tmp/revealhashed/hashcat.potfile
 echo -e "${bgreen}revealing results${reset}"
 echo ''
+#if you don't want to see disabled accounts' password then change the line blow with this:
+#awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
 awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
 
 # revealhashed v1.1
