@@ -7,7 +7,7 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}revealhashed v1.1${reset}"
+echo -e "${bblue}revealhashed v1.2${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
@@ -18,7 +18,7 @@ echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 echo ''
 
 mkdir /tmp/revealhashed
-echo -e "${bgreen}ntds file: default path (/root/.nxc/logs/) or would you provide?${reset}"
+echo -e "${bgreen}ntds file: default path ($HOME/.nxc/logs/) or would you provide?${reset}"
 echo -e "${bwhite}type n to use default path"
 echo -e "type y to provide ntds file${reset}"
 read response1
@@ -26,7 +26,7 @@ read response1
 if [ "$response1" = "n" ]; then
     echo ''
     echo -e "${bgreen}using default path.${reset}"
-    cp /root/.nxc/logs/*.ntds /tmp/revealhashed/
+    cp $HOME/.nxc/logs/*.ntds /tmp/revealhashed/
     cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     
 elif [ "$response1" = "y" ]; then
@@ -54,7 +54,7 @@ echo ''
 
 if [ "$response2" = "y" ]; then
     echo -e "${bgreen}removing hashcat potfile.${reset}"
-    find / -name 'hashcat.potfile' -exec rm -rf {} \;
+    rm -rf $HOME/.local/share/hashcat/hashcat.potfile 
     echo -e "${bwhite}done${reset}"
     
 elif [ "$response2" = "n" ]; then
@@ -80,7 +80,7 @@ echo ''
 echo -e "${bgreen}hashcat session is completed. $(date)${reset}"
 echo ''
 echo -e "${bgreen}copying hashcat.potfile to \"/tmp/revealhashed/\".${reset}"
-find / -name 'hashcat.potfile' -exec cp {} /tmp/revealhashed/ 2>/dev/null \;
+cp $HOME/.local/share/hashcat/hashcat.potfile /tmp/revealhashed/
 echo -e "${bwhite}done${reset}"
 echo ''
 while IFS=: read -r h1 h2
@@ -93,7 +93,7 @@ echo ''
 #awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
 awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
 
-# revealhashed v1.1
+# revealhashed v1.2
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
