@@ -7,7 +7,7 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}revealhashed v1.2${reset}"
+echo -e "${bblue}revealhashed v1.3${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
@@ -27,7 +27,7 @@ if [ "$response1" = "n" ]; then
     echo ''
     echo -e "${bgreen}using default path.${reset}"
     cp $HOME/.nxc/logs/*.ntds /tmp/revealhashed/
-    cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
+    cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     
 elif [ "$response1" = "y" ]; then
     echo ''
@@ -85,15 +85,19 @@ echo -e "${bwhite}done${reset}"
 echo ''
 while IFS=: read -r h1 h2
 do
-    grep "$h1" /tmp/revealhashed/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed/revealhashed.txt
+    if [ "$h2" = "" ]; then
+        grep "$h1" /tmp/revealhashed/*.ntds | sed -e "s/$/ <no password>/" >> /tmp/revealhashed/revealhashed.txt
+    else
+        grep "$h1" /tmp/revealhashed/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed/revealhashed.txt
+    fi
 done < /tmp/revealhashed/hashcat.potfile
 echo -e "${bgreen}revealing results${reset}"
 echo ''
-#if you don't want to see disabled accounts' password then change the line blow with this:
-#awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
-awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2
+#if you don't want to see disabled accounts' password then change the line below with this:
+#awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
+awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
 
-# revealhashed v1.2
+# revealhashed v1.3
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
