@@ -35,7 +35,7 @@ elif [ "$response1" = "y" ]; then
     read file
     echo ''
     echo -e "${bgreen}script will use \"$file\".${reset}"    
-    cat $file | awk -F: '{print $4}' | awk '!/31d6cfe0d16ae931b73c59d7e0c089c0/' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
+    cat $file | awk -F: '{print $4}' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     cat $file > /tmp/revealhashed/individual.ntds
 
 else
