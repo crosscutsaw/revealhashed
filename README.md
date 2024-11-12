@@ -6,3 +6,9 @@ revealhashed is a semi-automated bash script to automatically match username-has
 
 ## example output
 ![](https://raw.githubusercontent.com/crosscutsaw/revealhashed/main/f1.PNG)
+
+## real world pentest output
+
+i'm using custom version of revealhashed where five different wordlists hardcoded into script.
+
+![](https://raw.githubusercontent.com/crosscutsaw/revealhashed/main/rvp.png)
