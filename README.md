@@ -1,4 +1,4 @@
-## about revealhashed v1.3
+## about revealhashed v1.4
 revealhashed is a semi-automated bash script to automatically match username-hash-password respectively.
 
 ## how to use
