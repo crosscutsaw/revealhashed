@@ -7,7 +7,7 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}revealhashed v1.3${reset}"
+echo -e "${bblue}revealhashed v1.4${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
@@ -91,13 +91,14 @@ do
         grep "$h1" /tmp/revealhashed/*.ntds | sed -e "s/$/ $h2/" >> /tmp/revealhashed/revealhashed.txt
     fi
 done < /tmp/revealhashed/hashcat.potfile
+
 echo -e "${bgreen}revealing results${reset}"
 echo ''
-#if you don't want to see disabled accounts' password then change the line below with this:
+#if you only want enabled accounts' password then change the line below with this:
 #awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
-awk -F ':' '{gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
+awk -F ':' '{status=""; if ($0 ~ "(status=Disabled)") {status="\033[1;31m  <disabled>\033[0m"} gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); printf "%-40s %-20s\n", $1, status $7}' /tmp/revealhashed/revealhashed.txt | sort -k1 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
 
-# revealhashed v1.3
+# revealhashed v1.4
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
