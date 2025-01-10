@@ -94,9 +94,9 @@ done < /tmp/revealhashed/hashcat.potfile
 
 echo -e "${bgreen}revealing results${reset}"
 echo ''
-#if you only want enabled accounts' password then change the line below with this:
+#if you want only enabled accounts' password then change the line below with this:
 #awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
-awk -F ':' '{status=""; if ($0 ~ "(status=Disabled)") {status="\033[1;31m  <disabled>\033[0m"} gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); printf "%-40s %-20s\n", $1, status $7}' /tmp/revealhashed/revealhashed.txt | sort -k1 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
+awk -F ':' '{status=""; if ($0 ~ "(status=Disabled)") {status="\033[1;31m  <disabled>\033[0m"} gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); $7="\033[1;37m"$7"\033[0m"; printf "%-40s %-20s\n", $1, status $7}' /tmp/revealhashed/revealhashed.txt | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
 
 # revealhashed v1.4
 # 
