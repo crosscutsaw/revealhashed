@@ -11,4 +11,4 @@ revealhashed is a semi-automated bash script to automatically match username-has
 
 i'm using custom version of revealhashed where five different wordlists hardcoded into script.
 
-![](https://raw.githubusercontent.com/crosscutsaw/revealhashed/main/rvp.png)
+![](https://raw.githubusercontent.com/crosscutsaw/revealhashed/main/rwp.jpg)
