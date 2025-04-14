@@ -7,11 +7,23 @@ bwhite='\033[1;37m'
 reset='\033[0m'
 
 echo ''
-echo -e "${bblue}revealhashed v1.4${reset}"
+echo -e "${bblue}revealhashed v1.5${reset}"
 echo ''
 
 echo -e "${bbred}removing old files if they are exist or not.${reset}"
 rm -rf /tmp/revealhashed
+
+if [ -d "/tmp/revealhashed" ]; then
+    echo ''
+    echo -e "${bbred}cannot delete old files because you have no privileges against $(ls -ld /tmp/revealhashed | awk '{print $3}').${reset}"
+    echo ''
+    echo -e "${bwhite}please switch to root or execute script with sudo if you have certain privileges.${reset}"
+    echo ''
+    echo -e "${bwhite}or execute \"${bgreen}sed -i 's|/tmp/revealhashed|/tmp/revealhashed2|g' $(pwd)/revealhashed.sh${reset}${bwhite}\" command to change revealhashed's hardcoded working directory.${reset}"
+    exit
+else
+    :
+fi
 echo ''
 
 echo -e "${bwhite}current working directory is: $(pwd)${reset}"
@@ -98,7 +110,7 @@ echo ''
 #awk -F ':' '!/\(status=Disabled\)/ {gsub(/\(status=Enabled\)/, ""); print $1, $7}' /tmp/revealhashed/revealhashed.txt | awk '!x[$0]++' | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
 awk -F ':' '{status=""; if ($0 ~ "(status=Disabled)") {status="\033[1;31m  <disabled>\033[0m"} gsub(/\(status=Enabled\)|\(status=Disabled\)/, ""); $7="\033[1;37m"$7"\033[0m"; printf "%-40s %-20s\n", $1, status $7}' /tmp/revealhashed/revealhashed.txt | sort -k2 | sed -e "s/<no password>/\x1b[1;33m<no password>\x1b[0m/g"
 
-# revealhashed v1.4
+# revealhashed v1.5
 # 
 # contact options
 # mail: https://blog.zurrak.com/contact.html
