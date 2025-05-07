@@ -30,7 +30,7 @@ echo -e "${bwhite}current working directory is: $(pwd)${reset}"
 echo ''
 
 mkdir /tmp/revealhashed
-echo -e "${bgreen}ntds file: default path ($HOME/.nxc/logs/) or would you provide?${reset}"
+echo -e "${bgreen}ntds file: default path ($HOME/.nxc/logs/ntds/) or would you provide?${reset}"
 echo -e "${bwhite}type n to use default path"
 echo -e "type y to provide ntds file${reset}"
 read response1
