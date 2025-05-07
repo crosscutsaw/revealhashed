@@ -38,7 +38,7 @@ read response1
 if [ "$response1" = "n" ]; then
     echo ''
     echo -e "${bgreen}using default path.${reset}"
-    cp $HOME/.nxc/logs/*.ntds /tmp/revealhashed/
+    cp $HOME/.nxc/logs/ntds/*.ntds /tmp/revealhashed/
     cat /tmp/revealhashed/*.ntds | awk -F: '{print $4}' | sort | uniq >> /tmp/revealhashed/rh2cracked.txt
     
 elif [ "$response1" = "y" ]; then
